@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
-from ..dependencies import get_keyvault
-from ..services.keyvault import KeyVault
+from dependencies import get_keyvault
+from core.keyvault import KeyVault
 
 router = APIRouter()
 

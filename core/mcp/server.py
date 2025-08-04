@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 
-from ..routers import example
+from api.routes import example
 
 
 def create_mcp_server() -> FastAPI:

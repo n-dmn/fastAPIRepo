@@ -1,10 +1,10 @@
-from fastapi import FastAPI, Depends
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .dependencies import get_keyvault, set_keyvault
-from .middleware.auth import AuthenticationMiddleware
-from .routers import example
-from .services.keyvault import KeyVault
+from dependencies import get_keyvault, set_keyvault
+from api.middleware.auth import AuthenticationMiddleware
+from api.routes import example
+from core.keyvault import KeyVault
 
 app = FastAPI()
 

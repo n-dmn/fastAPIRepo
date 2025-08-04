@@ -1,10 +1,8 @@
 from typing import Optional
 
-from .services.keyvault import KeyVault
-
+from core.keyvault import KeyVault
 
 _keyvault: Optional[KeyVault] = None
-
 
 def get_keyvault() -> KeyVault:
     assert _keyvault is not None, "KeyVault not initialized"
