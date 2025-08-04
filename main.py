@@ -5,6 +5,7 @@ from dependencies import get_keyvault, set_keyvault
 from api.middleware.auth import AuthenticationMiddleware
 from api.routes import example
 from core.keyvault import KeyVault
+from core.database import init_db
 
 app = FastAPI()
 
@@ -24,6 +25,7 @@ app.include_router(example.router)
 @app.on_event("startup")
 async def startup_event() -> None:
     """Initialize KeyVault once at startup."""
+    init_db()
     set_keyvault(KeyVault())
 
 
