@@ -9,6 +9,7 @@ class KeyVault:
         self._secrets: dict[str, Any] = {
             "API_KEY": os.getenv("API_KEY"),
             "DATABASE_URL": os.getenv("DATABASE_URL"),
+            "DATABASE_SCHEMA": os.getenv("DATABASE_SCHEMA", "app_schema"),
         }
 
     def get(self, key: str) -> Any:
