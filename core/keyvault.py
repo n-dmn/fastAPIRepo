@@ -10,6 +10,8 @@ class KeyVault:
             "API_KEY": os.getenv("API_KEY"),
             "DATABASE_URL": os.getenv("DATABASE_URL"),
             "DATABASE_SCHEMA": os.getenv("DATABASE_SCHEMA", "app_schema"),
+            "AZURE_TENANT_ID": os.getenv("AZURE_TENANT_ID"),
+            "AZURE_CLIENT_ID": os.getenv("AZURE_CLIENT_ID"),
         }
 
     def get(self, key: str) -> Any:
