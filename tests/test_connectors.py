@@ -46,3 +46,33 @@ async def test_execute_df_closes_session():
     assert res.equals(df)
     read_sql.assert_called()
     session.close.assert_called()
+
+
+@pytest.mark.asyncio
+async def test_postgres_execute_write():
+    session = AsyncMock()
+    result = MagicMock(rowcount=1)
+    session.execute.return_value = result
+
+    connector = PostgresConnector(lambda: session)
+    count = await connector.execute_write("INSERT", {})
+
+    assert count == 1
+    session.execute.assert_called()
+    session.commit.assert_called()
+    session.close.assert_called()
+
+
+@pytest.mark.asyncio
+async def test_mssql_call_procedure_sql():
+    session = AsyncMock()
+    result = MagicMock()
+    result.mappings.return_value.all.return_value = [{"v": 1}]
+    session.execute.return_value = result
+
+    connector = MssqlConnector(lambda: session)
+    rows = await connector.call_procedure("my_proc", {"a": 1, "b": 2})
+
+    assert rows == [{"v": 1}]
+    executed_sql = session.execute.call_args[0][0].text
+    assert executed_sql == "EXEC my_proc @a = :a, @b = :b"

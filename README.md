@@ -72,6 +72,31 @@ rows_ms = await ms.execute_all(
 )
 ```
 
+## CRUD & Stored Procedures
+
+```python
+# Insert
+await pg.execute_write(
+    "INSERT INTO users(id, name) VALUES (:id, :name)",
+    {"id": 1, "name": "Alice"},
+)
+
+# Update
+await pg.execute_write(
+    "UPDATE users SET name = :name WHERE id = :id",
+    {"id": 1, "name": "Bob"},
+)
+
+# Delete
+await pg.execute_write(
+    "DELETE FROM users WHERE id = :id",
+    {"id": 1},
+)
+
+# Stored procedure
+rows = await ms.call_procedure("dbo.refresh_stats", {"arg": 10})
+```
+
 ## Unit of Work
 
 ```python

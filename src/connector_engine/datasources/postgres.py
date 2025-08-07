@@ -42,6 +42,22 @@ class PostgresConnector(DataSource):
         finally:
             await session.close()
 
+    async def execute_write(self, sql: str, params: Dict[str, Any] | None = None) -> int:
+        logger.debug("Executing write: %s %s", sql, params)
+        async with self.begin_uow() as session:
+            result = await session.execute(text(sql), params or {})
+            return result.rowcount
+
+    async def call_procedure(self, name: str, params: Dict[str, Any] | None = None) -> List[Dict[str, Any]]:
+        logger.debug("Calling procedure: %s %s", name, params)
+        params = params or {}
+        placeholders = ", ".join(f":{k}" for k in params)
+        sql = f"CALL {name}({placeholders})" if placeholders else f"CALL {name}()"
+        async with self.begin_uow() as session:
+            result = await session.execute(text(sql), params)
+            rows = result.mappings().all()
+            return [dict(r) for r in rows]
+
     def get_session(self) -> AsyncSession:
         return self._session_factory()
 

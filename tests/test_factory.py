@@ -17,6 +17,12 @@ class Dummy(DataSource):
         import pandas as pd
         return pd.DataFrame()
 
+    async def execute_write(self, sql, params=None):  # pragma: no cover
+        return 0
+
+    async def call_procedure(self, name, params=None):  # pragma: no cover
+        return []
+
     def get_session(self):  # pragma: no cover
         raise NotImplementedError
 

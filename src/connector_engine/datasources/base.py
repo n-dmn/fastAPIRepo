@@ -23,6 +23,14 @@ class DataSource(ABC):
         """Execute a query and return the result as a pandas DataFrame."""
 
     @abstractmethod
+    async def execute_write(self, sql: str, params: Dict[str, Any] | None = None) -> int:
+        """Execute INSERT/UPDATE/DELETE and return affected row count."""
+
+    @abstractmethod
+    async def call_procedure(self, name: str, params: Dict[str, Any] | None = None) -> List[Dict[str, Any]]:
+        """Call a stored procedure and return rows as list of dictionaries."""
+
+    @abstractmethod
     def get_session(self) -> AsyncSession:
         """Return a new async session."""
 
