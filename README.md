@@ -40,6 +40,38 @@ pg = factory.get("postgres")
 result = await pg.execute_one("SELECT 1", {})
 ```
 
+## Sample Queries
+
+```python
+# Postgres connector with parameters
+row = await pg.execute_one(
+    "SELECT * FROM users WHERE id = :user_id",
+    {"user_id": 1},
+)
+
+rows = await pg.execute_all(
+    "SELECT * FROM users WHERE age > :age",
+    {"age": 21},
+)
+
+df = await pg.execute_df(
+    "SELECT * FROM purchases WHERE price >= :price",
+    {"price": 100},
+)
+
+# MSSQL connector with parameters
+ms = factory.get("mssql")
+row_ms = await ms.execute_one(
+    "SELECT TOP (1) * FROM users WHERE id = :user_id",
+    {"user_id": 1},
+)
+
+rows_ms = await ms.execute_all(
+    "SELECT * FROM users WHERE status = :status",
+    {"status": "active"},
+)
+```
+
 ## Unit of Work
 
 ```python
