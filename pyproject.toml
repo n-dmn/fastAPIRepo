@@ -1,0 +1,49 @@
+[project]
+name = "connector_engine"
+version = "0.1.0"
+description = "Async database connector engine for Postgres and MSSQL"
+authors = [{name = "Maintainer"}]
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["database", "async", "sqlalchemy", "dependency-injector"]
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "SQLAlchemy[asyncio]",
+    "asyncpg",
+    "pyodbc",
+    "pandas",
+    "dependency-injector",
+    "pydantic",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "flake8",
+    "mypy",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.mypy]
+python_version = "3.10"
+plugins = []
+
+[tool.flake8]
+max-line-length = 88
+exclude = [".git", "__pycache__", "build", "dist"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+asyncio_mode = "auto"
+
