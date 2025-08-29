@@ -7,7 +7,7 @@ from typing import Any
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from openai import AzureOpenAI
-from openai_agents.client import MCPClient
+from openai_agents.mcp.client import MCPClient
 
 
 AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY", "")
